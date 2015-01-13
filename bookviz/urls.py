@@ -19,9 +19,25 @@ goodreads = OAuth1Service(
 
 @app.route('/')
 def index():
+    return render_template('index.html')
 
+
+@app.route('/login')
+def login():
     # head_auth=True is important here; this doesn't work with oauth2 for some reason
     request_token, request_token_secret = goodreads.get_request_token(header_auth=True)
-    authorize_url = goodreads.get_authorize_url(request_token)
 
-    return render_template('index.html', authorize_url=authorize_url)
+    return redirect(goodreads.get_authorize_url(request_token))
+
+
+@app.route('/authorized')
+def authorized():
+
+    if request.args.get('authorize', '') == '1':
+        ## create some models
+        print 'success!'
+    else:
+        ## handle the error
+        print 'error'
+
+    return render_template('index.html')
