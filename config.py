@@ -18,3 +18,5 @@ class DevelopmentConfig(Config):
 
     DEBUG = True
     USE_RELOADER = True
+
+    MONGODB_SETTINGS = {'DB': 'bookviz'}
